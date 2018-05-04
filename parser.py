@@ -1,12 +1,16 @@
-import re,json
-final = re.findall('([\s\S]*?)(I|[.]\d\d)',open('string.txt','r').read().replace('\n',''))
+import re,json,argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-p", help="input relative file path, default string.txt")
+args = parser.parse_args()
+path = (args.p if args.p else 'string.txt')
+final = re.findall('([\s\S]*?)(I|[.]\d\d)',open(path,'r').read().replace('\n',''))
 concat = ''
 jsonString = {}
 curentTicket = 0
 currentItem = 0
 for column in final:
   for item in column:
-    if item != 'H' or item != 'T' or item != 'I':  
+    if item != 'H' or item != 'T' or item != 'I':
       concat += item
   if len(concat) >= 3:
     if concat.find(".") == -1:
